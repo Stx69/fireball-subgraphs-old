@@ -40,13 +40,45 @@ export const loadOrCreateParcel = (realmId: BigInt): Parcel => {
       parcel.alphaBoost = metadata.boost[AlchemicaTypes.Alpha];
       parcel.kekBoost = metadata.boost[AlchemicaTypes.Kek];
 
-      parcel.capacities = metadata.capacities;
-      parcel.harvestRates = metadata.harvestRates;
-      parcel.availableAlchemica = metadata.availableAlchemica;
-
-      log.warning('parcel: {}, DATA ARRIVED, id - {}', [realmId.toString(), metadata.parcelId]);
+      log.warning('parcel: {}, PARCEL INFO DATA ARRIVED, id - {}', [realmId.toString(), metadata.parcelId]);
     } else {
-      log.error('parcel: {}, REVERTED', [realmId.toString()]);
+      log.error('parcel: {}, PARCEL INFO REVERTED', [realmId.toString()]);
+    }
+
+    const _parcelHarvestRates = contract.try_getHarvestRates(realmId);
+
+    if (!_parcelHarvestRates.reverted) {
+      const metadata = _parcelHarvestRates.value;
+      parcel.harvestRates = metadata;
+
+      log.warning('parcel: {}, PARCEL HARVEST DATA ARRIVED, id - {}', [realmId.toString(), metadata.toString()]);
+    } else {
+      log.error('parcel: {}, PARCEL HARVEST REVERTED', [realmId.toString()]);
+    }
+
+    const _parcelCapacities = contract.try_getCapacities(realmId);
+
+    if (!_parcelCapacities.reverted) {
+      const metadata = _parcelCapacities.value;
+      parcel.capacities = metadata;
+
+      log.warning('parcel: {}, PARCEL CAP DATA ARRIVED, id - {}', [realmId.toString(), metadata.toString()]);
+    } else {
+      log.error('parcel: {}, PARCEL CAP REVERTED', [realmId.toString()]);
+    }
+
+    const _parcelAvailableAlchemica = contract.try_getAvailableAlchemica(realmId);
+
+    if (!_parcelAvailableAlchemica.reverted) {
+      const metadata = _parcelAvailableAlchemica.value;
+      parcel.availableAlchemica = metadata;
+
+      log.warning('parcel: {}, PARCEL AVAILIBLE ALCHEMICA DATA ARRIVED, id - {}', [
+        realmId.toString(),
+        metadata.toString()
+      ]);
+    } else {
+      log.error('parcel: {}, PARCEL AVAILIBLE ALCHEMICA  REVERTED', [realmId.toString()]);
     }
   }
 
