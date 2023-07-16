@@ -14,6 +14,9 @@ export const loadOrCreateParcel = (realmId: BigInt): Parcel => {
     parcel.tokenId = realmId;
     parcel.timesTraded = BigInt.zero();
     parcel.alchemica = [BigInt.zero(), BigInt.zero(), BigInt.zero(), BigInt.zero()];
+    parcel.capacities = [BigInt.zero(), BigInt.zero(), BigInt.zero(), BigInt.zero()];
+    parcel.harvestRates = [BigInt.zero(), BigInt.zero(), BigInt.zero(), BigInt.zero()];
+    parcel.availableAlchemica = [BigInt.zero(), BigInt.zero(), BigInt.zero(), BigInt.zero()];
   }
 
   log.warning('parcel: {}, diamond: {}', [realmId.toString(), dataSource.address().toHexString()]);
@@ -37,6 +40,10 @@ export const loadOrCreateParcel = (realmId: BigInt): Parcel => {
       parcel.alphaBoost = metadata.boost[AlchemicaTypes.Alpha];
       parcel.kekBoost = metadata.boost[AlchemicaTypes.Kek];
 
+      parcel.capacities = metadata.capacities;
+      parcel.harvestRates = metadata.harvestRates;
+      parcel.availableAlchemica = metadata.availableAlchemica;
+
       log.warning('parcel: {}, DATA ARRIVED, id - {}', [realmId.toString(), metadata.parcelId]);
     } else {
       log.error('parcel: {}, REVERTED', [realmId.toString()]);
@@ -59,18 +66,16 @@ export const increaseCurrentSurvey = (alchemica: BigInt[], alchemicas: BigInt[])
   return currentAlchemica;
 };
 
-
 export function getParcelVPBySize(size: BigInt): BigInt {
-
   switch (size.toI32()) {
     case ParcelTypes.Humble:
-      return BigInt.fromI32(HAMBLE_VP)
-    case ParcelTypes.Reasonable: 
-      return BigInt.fromI32(REASONABLE_VP)
-    case ParcelTypes.SpaciousH || ParcelTypes.SpaciousV: 
-      return BigInt.fromI32(SPACIOUS_VP)
-    case ParcelTypes.Partner || ParcelTypes.Guardian: 
-      return BigInt.fromI32(PARTNER_VP)
+      return BigInt.fromI32(HAMBLE_VP);
+    case ParcelTypes.Reasonable:
+      return BigInt.fromI32(REASONABLE_VP);
+    case ParcelTypes.SpaciousH || ParcelTypes.SpaciousV:
+      return BigInt.fromI32(SPACIOUS_VP);
+    case ParcelTypes.Partner || ParcelTypes.Guardian:
+      return BigInt.fromI32(PARTNER_VP);
     default:
       return BigInt.zero();
   }

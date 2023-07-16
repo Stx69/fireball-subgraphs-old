@@ -32,6 +32,9 @@ type Parcel @entity {
 
   "parcel current alchemica"
   alchemica: [BigInt!]!
+  availableAlchemica: [BigInt!]!
+  harvestRates: [BigInt!]!
+  capacities: [BigInt!]!
 
   surveys: [Survey!] @derivedFrom(field: "parcel")
   installations: [Installation!]!
