@@ -25,7 +25,7 @@
     "deploy:main:skv": "cd main && graph deploy --product hosted-service skv2rock/gotchi-main",
     "deploy:main:prod": "cd main && graph deploy --product hosted-service orden-gg/main",
     "deploy:main:stage": "cd main && graph deploy --product hosted-service dudendy/kratoman",
-    "deploy:verse:stage": "cd gotchiverse && graph deploy --product hosted-service dudendy/gotchiverse",
+    "deploy:verse:stage": "cd gotchiverse && graph deploy --product hosted-service stx69/gotchiverse",
     "deploy:verse:prod": "cd gotchiverse && graph deploy --product hosted-service orden-gg/gotchiverse",
     "deploy:forge:stage": "cd forge && graph deploy --product hosted-service dudendy/forge",
     "clean": "rm -rf node_modules"
