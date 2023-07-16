@@ -14,9 +14,7 @@ export const loadOrCreateParcel = (realmId: BigInt): Parcel => {
     parcel.tokenId = realmId;
     parcel.timesTraded = BigInt.zero();
     parcel.alchemica = [BigInt.zero(), BigInt.zero(), BigInt.zero(), BigInt.zero()];
-    parcel.capacities = [BigInt.zero(), BigInt.zero(), BigInt.zero(), BigInt.zero()];
-    parcel.harvestRates = [BigInt.zero(), BigInt.zero(), BigInt.zero(), BigInt.zero()];
-    parcel.availableAlchemica = [BigInt.zero(), BigInt.zero(), BigInt.zero(), BigInt.zero()];
+    
   }
 
   log.warning('parcel: {}, diamond: {}', [realmId.toString(), dataSource.address().toHexString()]);
