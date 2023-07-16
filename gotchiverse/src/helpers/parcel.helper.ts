@@ -44,7 +44,10 @@ export const loadOrCreateParcel = (realmId: BigInt): Parcel => {
     } else {
       log.error('parcel: {}, PARCEL INFO REVERTED', [realmId.toString()]);
     }
+  }
 
+  if (!parcel.harvestRates) {
+    const contract = RealmDiamond.bind(dataSource.address());
     const _parcelHarvestRates = contract.try_getHarvestRates(realmId);
 
     if (!_parcelHarvestRates.reverted) {
@@ -55,7 +58,9 @@ export const loadOrCreateParcel = (realmId: BigInt): Parcel => {
     } else {
       log.error('parcel: {}, PARCEL HARVEST REVERTED', [realmId.toString()]);
     }
-
+  }
+  if (!parcel.capacities) {
+    const contract = RealmDiamond.bind(dataSource.address());
     const _parcelCapacities = contract.try_getCapacities(realmId);
 
     if (!_parcelCapacities.reverted) {
@@ -66,7 +71,9 @@ export const loadOrCreateParcel = (realmId: BigInt): Parcel => {
     } else {
       log.error('parcel: {}, PARCEL CAP REVERTED', [realmId.toString()]);
     }
-
+  }
+  if (!parcel.availableAlchemica) {
+    const contract = RealmDiamond.bind(dataSource.address());
     const _parcelAvailableAlchemica = contract.try_getAvailableAlchemica(realmId);
 
     if (!_parcelAvailableAlchemica.reverted) {
